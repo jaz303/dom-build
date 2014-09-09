@@ -1,5 +1,7 @@
 module.exports = dombuild;
 
+var bind = require('dom-bind').bind;
+
 var PIXELS = {
 
     fontSize            : true,
@@ -37,11 +39,6 @@ var PIXELS = {
     borderLeftWidth     : true
     
 };
-
-function bind(el, evt, fn) {
-    // TODO: delegate to something else
-    el.addEventListener(evt.substr(2), fn);
-}
 
 function dombuild(tag) {
     var state = {};
