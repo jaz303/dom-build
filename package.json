@@ -1,7 +1,7 @@
 {
-  "name": "dombuild",
+  "name": "dom-build",
   "version": "0.0.1",
-  "description": "```javascript var d = require('dombuild');",
+  "description": "```javascript var d = require('dom-build');",
   "main": "index.js",
   "directories": {
     "test": "test"
@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/jaz303/dombuild.git"
+    "url": "https://github.com/jaz303/dom-build.git"
   },
   "keywords": [
     "dom",
@@ -22,7 +22,7 @@
   "author": "Jason Frame <jason@onehackoranother.com> (http://jasonframe.co.uk)",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/jaz303/dombuild/issues"
+    "url": "https://github.com/jaz303/dom-build/issues"
   },
-  "homepage": "https://github.com/jaz303/dombuild"
+  "homepage": "https://github.com/jaz303/dom-build"
 }
