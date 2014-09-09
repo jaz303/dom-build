@@ -98,7 +98,7 @@ function createElement(state, tag) {
         throw new Error("invalid tag");
     }
 
-    var el = document.createElement(RegExp.$1 || 'div');
+    var el = document.createElement(m[1] || 'div');
 
     if (m[2]) state[m[2].substr(1)] = el;
     if (m[3]) el.id = m[3].substr(1);
