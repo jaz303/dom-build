@@ -72,8 +72,8 @@ function append(state, el, items, startOffset) {
         } else {
             for (var k in item) {
                 var v = item[k];
-                if (typeof v === 'function' && k.match(/^on/)) {
-                    bind(el, k.replace(/^on/, ''), v);
+                if (typeof v === 'function' && k[0] === 'o' && k[1] === 'n') {
+                    bind(el, k.substr(2), v);
                 } else if (k === 'style') {
                     if (typeof v === 'string') {
                         el.style.cssText = v;
