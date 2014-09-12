@@ -40,15 +40,17 @@ var PIXELS = {
     
 };
 
+function Result() {}
+
 function dombuild(tag) {
-    var state = {};
-    state.root = builder(state, arguments, 0);
+    var state = new Result();
+    state.root = builder(state, arguments);
     return state;
 }
 
-function builder(state, args, offset) {
-    var el = createElement(state, args[offset]);
-    append(state, el, args, offset + 1);
+function builder(state, args) {
+    var el = createElement(state, args[0]);
+    append(state, el, args, 1);
     return el;
 }
 
@@ -57,17 +59,21 @@ function append(state, el, items, startOffset) {
         var item = items[i];
         if (typeof item === 'string') {
             el.appendChild(document.createTextNode(item));
-        } else if (Array.isArray(item)) {
-            if (item[0] === dombuild) {
-                el.appendChild(builder(state, item, 1));
-            } else {
-                append(state, el, items, 0);    
+        } else if (item instanceof Result) {
+            for (var k in item) {
+                if (k === 'root') {
+                    el.appendChild(item[k]);
+                } else {
+                    state[k] = item[k];
+                }
             }
+        } else if (Array.isArray(item)) {
+            append(state, el, item, 0);
         } else {
             for (var k in item) {
                 var v = item[k];
-                if (typeof v === 'function') {
-                    bind(el, k, v);
+                if (typeof v === 'function' && k.match(/^on/)) {
+                    bind(el, k.replace(/^on/, ''), v);
                 } else if (k === 'style') {
                     if (typeof v === 'string') {
                         el.style.cssText = v;
