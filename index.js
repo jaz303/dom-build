@@ -97,15 +97,15 @@ function append(state, el, items, startOffset) {
 function createElement(state, tag) {
 
     var m;
-    if (!tag.length || !(m = /^([\w-]+)?(\![\w-]+)?(#[\w-]+)?((\.[\w-]+)*)$/.exec(tag))) {
+    if (!tag.length || !(m = /^([\w-]+)?(#[\w-]+)?((\.[\w-]+)*)(\![\w-]+)?$/.exec(tag))) {
         throw new Error("invalid tag");
     }
 
     var el = document.createElement(m[1] || 'div');
 
-    if (m[2]) state[m[2].substr(1)] = el;
-    if (m[3]) el.id = m[3].substr(1);
-    if (m[4]) el.className = m[4].replace(/\./g, ' ').trim();
+    if (m[2]) el.id = m[3].substr(1);
+    if (m[3]) el.className = m[3].replace(/\./g, ' ').trim();
+    if (m[5]) state[m[5].substr(1)] = el;
 
     return el;
 
