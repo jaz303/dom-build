@@ -58,7 +58,7 @@ function builder(state, args) {
 function append(state, el, items, startOffset) {
     for (var i = startOffset, len = items.length; i < len; ++i) {
         var item = items[i];
-        if (typeof item === 'string') {
+        if (typeof item === 'string' || typeof item === 'number') {
             el.appendChild(document.createTextNode(item));
         } else if (item instanceof Result) {
             for (var k in item) {
@@ -70,6 +70,8 @@ function append(state, el, items, startOffset) {
             }
         } else if (Array.isArray(item)) {
             append(state, el, item, 0);
+        } else if (!item) {
+            continue;
         } else {
             for (var k in item) {
                 var v = item[k];
@@ -104,7 +106,7 @@ function createElement(state, tag) {
 
     var el = document.createElement(m[1] || 'div');
 
-    if (m[2]) el.id = m[3].substr(1);
+    if (m[2]) el.id = m[2].substr(1);
     if (m[3]) el.className = m[3].replace(/\./g, ' ').trim();
     if (m[5]) state[m[5].substr(1)] = el;
 
@@ -243,7 +245,7 @@ window.init = function() {
         d("i", "here's some italic text")
       ]
     ),
-    d("div", {style: {width: 100, height: 100, backgroundColor: 'red'}})
+    d("div", {style: {width: 100, height: 100, backgroundColor: 'red'}}, 0, null, void 0, false)
   );
 
   document.body.appendChild(ui.root);
