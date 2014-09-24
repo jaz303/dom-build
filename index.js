@@ -103,7 +103,7 @@ function createElement(state, tag) {
 
     var el = document.createElement(m[1] || 'div');
 
-    if (m[2]) el.id = m[3].substr(1);
+    if (m[2]) el.id = m[2].substr(1);
     if (m[3]) el.className = m[3].replace(/\./g, ' ').trim();
     if (m[5]) state[m[5].substr(1)] = el;
 
