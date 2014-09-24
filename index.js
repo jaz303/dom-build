@@ -57,7 +57,7 @@ function builder(state, args) {
 function append(state, el, items, startOffset) {
     for (var i = startOffset, len = items.length; i < len; ++i) {
         var item = items[i];
-        if (typeof item === 'string') {
+        if (typeof item === 'string' || typeof item === 'number') {
             el.appendChild(document.createTextNode(item));
         } else if (item instanceof Result) {
             for (var k in item) {
@@ -69,6 +69,8 @@ function append(state, el, items, startOffset) {
             }
         } else if (Array.isArray(item)) {
             append(state, el, item, 0);
+        } else if (!item) {
+            continue;
         } else {
             for (var k in item) {
                 var v = item[k];
