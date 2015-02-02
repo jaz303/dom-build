@@ -1,6 +1,6 @@
 {
   "name": "dom-build",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Build DOM trees in Javascript with shortcut syntax for grabbing references to generated elements",
   "main": "index.js",
   "directories": {
