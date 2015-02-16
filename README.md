@@ -10,6 +10,13 @@ var d = require('dom-build');
 var ui = d('#root.a.b.c!foo',
   "This is a text node", d('br'),
   "This is another text node", d('br'),
+  d('span.myMessage',
+    d('%text!myMessage',
+      'This is an explicit text node; it will be returned.',
+      ' Multiple strings ',
+      'can be added'
+    )
+  ),
   d('br'),
   d('a.active!link',
     { href: "/foo/bar",
@@ -27,6 +34,7 @@ var ui = d('#root.a.b.c!foo',
 This yields the `ui` object comprising these keys:
 
   * `root`: the element created by the outermost call to `d()`
+  * `myMessage`: a raw text node; the contents of `span.myMessage`
   * `foo`: equivalent to `root`; `div#root.a.b.c`
   * `link`: `a.active`
   * `bold`: `<b>here's some bold text</b>`

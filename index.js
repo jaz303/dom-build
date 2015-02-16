@@ -61,7 +61,11 @@ function append(state, el, items, startOffset) {
             item = item();
         }
         if (typeof item === 'string' || typeof item === 'number') {
-            el.appendChild(document.createTextNode(item));
+            if (el.nodeType === 1) {
+                el.appendChild(document.createTextNode(item));    
+            } else if (el.nodeType === 3) {
+                el.nodeValue += item;
+            }
         } else if (item instanceof Result) {
             for (var k in item) {
                 if (k === 'root') {
@@ -101,17 +105,21 @@ function append(state, el, items, startOffset) {
 
 function createElement(state, tag) {
 
-    var m;
-    if (!tag.length || !(m = /^([\w-]+)?(#[\w-]+)?((\.[\w-]+)*)(\![\w-]+)?$/.exec(tag))) {
-        throw new Error("invalid tag");
+    if (tag.length) {
+        var m;
+        if ((m = /^([\w-]+)?(#[\w-]+)?((\.[\w-]+)*)(\![\w-]+)?$/.exec(tag))) {
+            var el = document.createElement(m[1] || 'div');
+            if (m[2]) el.id = m[2].substr(1);
+            if (m[3]) el.className = m[3].replace(/\./g, ' ').trim();
+            if (m[5]) state[m[5].substr(1)] = el;
+            return el;
+        } else if ((m = /^%text(\![\w-]+)?$/.exec(tag))) {
+            var text = document.createTextNode('');
+            if (m[1]) state[m[1].substr(1)] = text;
+            return text;
+        }
     }
 
-    var el = document.createElement(m[1] || 'div');
-
-    if (m[2]) el.id = m[2].substr(1);
-    if (m[3]) el.className = m[3].replace(/\./g, ' ').trim();
-    if (m[5]) state[m[5].substr(1)] = el;
-
-    return el;
+    throw new Error("invalid tag");
 
 }

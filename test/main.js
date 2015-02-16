@@ -5,6 +5,13 @@ window.init = function() {
   var ui = d('#root.a.b.c!foo',
     "This is a text node", d('br'),
     "This is another text node", d('br'),
+    d('span',
+      d('%text!myMessage',
+        'This is an explicit text node; it will be returned.',
+        ' Multiple strings ',
+        'can be added'
+      )
+    ),
     d('br'),
     d('a.active!link',
       { href: "/foo/bar",
@@ -19,6 +26,8 @@ window.init = function() {
   );
 
   document.body.appendChild(ui.root);
+
+  ui.myMessage.nodeValue += "; this is a dynamic text update!";
 
   console.log(ui);
 
