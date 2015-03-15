@@ -78,6 +78,8 @@ function append(state, el, items, startOffset) {
             append(state, el, item, 0);
         } else if (!item) {
             continue;
+        } else if (item.nodeType) {
+            el.appendChild(item);
         } else {
             for (var k in item) {
                 var v = item[k];
